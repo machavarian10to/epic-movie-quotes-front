@@ -32,13 +32,11 @@
           <label for="remember" class="text-white ml-2">Remember me</label>
         </div>
         <span
-          @click="$emit('changeModal', 'forgot-password')"
+          @click="modalStore.modalType = 'forgot-password'"
           class="text-modal-link underline cursor-pointer"
           >Forgot password</span
         >
       </div>
-
-      {{ error }}
 
       <RedButton
         title="Sign in"
@@ -49,7 +47,8 @@
       <BlackButton
         title="Sign in with Google"
         class="w-[360px] h-[40px]"
-        @click="registerWithGmail(meta)"
+        type="button"
+        @click="googleAuth()"
       >
         <GoogleIcon />
       </BlackButton>
@@ -57,7 +56,7 @@
       <p class="text-modal-text text-center mt-10">
         Don't have an account?
         <span
-          @click="$emit('changeModal', 'user-register')"
+          @click="modalStore.modalType = 'user-register'"
           class="text-modal-link underline cursor-pointer"
           >Sign up</span
         >
@@ -77,7 +76,9 @@ import BlackButton from "@/components/ui/BlackButton.vue";
 import GoogleIcon from "@/components/icons/GoogleIcon.vue";
 
 import { useUserStore } from "@/stores/user.js";
+import { useModalStore } from "@/stores/modal.js";
 
+const modalStore = useModalStore();
 const userStore = useUserStore();
 
 const user = reactive({
@@ -89,12 +90,11 @@ const user = reactive({
 function loginUser(meta) {
   if (meta.valid) {
     userStore.login(user);
+    modalStore.modalType = null;
   }
 }
 
-function registerWithGmail(meta) {
-  meta.valid ? alert("gmail registration") : alert("not valid");
+function googleAuth() {
+  userStore.googleAuth();
 }
-
-defineEmits(["changeModal"]);
 </script>

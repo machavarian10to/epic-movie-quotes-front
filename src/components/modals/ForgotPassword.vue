@@ -15,7 +15,9 @@
         />
       </InputWrapper>
 
-      <div @click="meta.valid ? $emit('changeModal', 'recovery-message') : ''">
+      <div
+        @click="meta.valid ? (modalStore.modalType = 'recovery-message') : ''"
+      >
         <RedButton
           title="Send instructions"
           class="w-[360px] h-[40px] my-5"
@@ -26,7 +28,7 @@
       <div class="flex items-center justify-center gap-3">
         <BackArrow
           class="cursor-pointer"
-          @click="$emit('changeModal', 'user-login')"
+          @click="modalStore.modalType = 'user-login'"
         />
         <p class="text-modal-text text-center">Back to log in</p>
       </div>
@@ -43,7 +45,11 @@ import BaseInput from "@/components/ui/BaseInput.vue";
 import RedButton from "@/components/ui/RedButton.vue";
 import { reactive } from "vue";
 
-defineEmits(["changeModal"]);
+import { useUserStore } from "@/stores/user.js";
+import { useModalStore } from "@/stores/modal.js";
+
+const modalStore = useModalStore();
+const userStore = useUserStore();
 
 const user = reactive({
   email: "",
@@ -51,7 +57,7 @@ const user = reactive({
 
 function sendReset(meta) {
   if (meta.valid) {
-    alert("pass");
+    userStore.resetPassword(user);
   }
 }
 </script>

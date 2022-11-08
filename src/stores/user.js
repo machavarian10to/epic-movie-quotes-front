@@ -12,22 +12,42 @@ export const useUserStore = defineStore({
     register(user) {
       return axios
         .post("/register", user)
-        .then(() => {
-          console.log("Registration Successful!");
+        .then((res) => {
+          setToken(res.data.access_token, res.data.expires_in);
         })
-        .catch((err) => console.log(err) && alert(err.response.data.message));
+        .catch((err) => console.log(err));
+    },
+    googleAuth() {
+      return axios
+        .get("/google/redirect")
+        .then((res) => {
+          this.router.push({
+            name: "google_redirect",
+            query: { url: res.data.url },
+          });
+        })
+        .catch((err) => console.log(err));
     },
     login(user) {
       axios
         .post("/login", user)
-        .then((response) => {
-          /* --- LOG --- */
-          console.log("Login Successful--->", response);
-          setToken(response.data.access_token, response.data.expires_in);
-          this.userData = response.data.user;
+        .then((res) => {
+          setToken(res.data.access_token, res.data.expires_in);
           this.router.push({ name: "feed" });
         })
-        .catch((err) => console.log(err) && alert(err.response.data.message));
+        .catch((err) => console.log(err));
+    },
+    resetPassword(user) {
+      axios
+        .post("/forgot-password", user)
+        .then(() => console.log("Email sent successfully!"))
+        .catch((err) => console.log(err));
+    },
+    updatePassword(user) {
+      axios
+        .post("/reset-password", user)
+        .then(() => console.log("Password updated successfully!"))
+        .catch((err) => console.log(err));
     },
     logout() {
       return axios
@@ -36,7 +56,7 @@ export const useUserStore = defineStore({
           deleteToken();
           this.userData = null;
         })
-        .catch((err) => console.log(err.response.data.message));
+        .catch((err) => console.log(err));
     },
   },
 });

@@ -10,9 +10,9 @@
       Your password changed successfully
     </h4>
     <RedButton
-      title="Go to my news feed"
+      title="Log in"
       class="w-[360px] h-[40px] my-5"
-      @click="redirect"
+      @click="modalStore.modalType = 'user-login'"
     ></RedButton>
   </TheModal>
 </template>
@@ -21,11 +21,7 @@
 import TheModal from "@/components/TheModal.vue";
 import SuccessIcon from "@/components/icons/SuccessIcon.vue";
 import RedButton from "@/components/ui/RedButton.vue";
-import { useRouter } from "vue-router";
+import { useModalStore } from "@/stores/modal.js";
 
-const router = useRouter();
-
-function redirect() {
-  router.push({ name: "feed" });
-}
+const modalStore = useModalStore();
 </script>

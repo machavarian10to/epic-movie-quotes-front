@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/pages/HomeView.vue";
-import NewsFeed from "@/pages/NewsFeed.vue";
-import EmailVerification from "@/pages/EmailVerification.vue";
+import HomeView from "@/views/HomeView.vue";
+import NewsFeed from "@/views/NewsFeed.vue";
+import EmailVerification from "@/views/EmailVerification.vue";
+import ResetPassword from "@/views/ResetPassword.vue";
+import GoogleRedirect from "@/views/GoogleRedirect.vue";
+import GoogleCallback from "@/views/GoogleCallback.vue";
 import { isAuthenticated } from "@/router/guards";
 
 const router = createRouter({
@@ -13,6 +16,26 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: "/email-verify/:id/:hash",
+      name: "verify",
+      component: EmailVerification,
+    },
+    {
+      path: "/reset-password",
+      name: "reset",
+      component: ResetPassword,
+    },
+    {
+      path: "/auth/google/redirect",
+      name: "google_redirect",
+      component: GoogleRedirect,
+    },
+    {
+      path: "/auth/google/callback",
+      name: "google_callback",
+      component: GoogleCallback,
+    },
+    {
       path: "/feed",
       name: "feed",
       component: NewsFeed,
@@ -20,11 +43,6 @@ const router = createRouter({
       // meta: {
       //   requiresAuth: true,
       // },
-    },
-    {
-      path: "/email-verify/:id/:hash",
-      name: "verify",
-      component: EmailVerification,
     },
   ],
 });

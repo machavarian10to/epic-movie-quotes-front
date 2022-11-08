@@ -3,7 +3,7 @@ import { getToken } from "@/components/helpers/index";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  timeout: 1000,
+  timeout: 10000,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

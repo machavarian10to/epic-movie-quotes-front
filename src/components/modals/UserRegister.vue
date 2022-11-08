@@ -46,7 +46,9 @@
       </InputWrapper>
 
       <div
-        @click="meta.valid ? $emit('changeModal', 'verification-message') : ''"
+        @click="
+          meta.valid ? (modalStore.modalType = 'verification-message') : ''
+        "
       >
         <RedButton
           title="Get started"
@@ -58,7 +60,8 @@
       <BlackButton
         title="Sign up with Google"
         class="w-[360px] h-[40px]"
-        @click="registerWithGmail(meta)"
+        type="button"
+        @click="googleAuth()"
       >
         <GoogleIcon />
       </BlackButton>
@@ -66,7 +69,7 @@
       <p class="text-modal-text text-center mt-10">
         Already have an account?
         <span
-          @click="$emit('changeModal', 'user-login')"
+          @click="modalStore.modalType = 'user-login'"
           class="text-modal-link underline cursor-pointer"
           >Log in</span
         >
@@ -86,7 +89,9 @@ import BlackButton from "@/components/ui/BlackButton.vue";
 import GoogleIcon from "@/components/icons/GoogleIcon.vue";
 
 import { useUserStore } from "@/stores/user.js";
+import { useModalStore } from "@/stores/modal.js";
 
+const modalStore = useModalStore();
 const userStore = useUserStore();
 
 const user = reactive({
@@ -102,9 +107,7 @@ function registerUser(meta) {
   }
 }
 
-function registerWithGmail(meta) {
-  meta.valid ? alert("gmail registration") : alert("not valid");
+function googleAuth() {
+  userStore.googleAuth();
 }
-
-defineEmits(["changeModal"]);
 </script>

@@ -22,10 +22,13 @@ import TheModal from "@/components/TheModal.vue";
 import SuccessIcon from "@/components/icons/SuccessIcon.vue";
 import RedButton from "@/components/ui/RedButton.vue";
 import { useRouter } from "vue-router";
+import { useModalStore } from "@/stores/modal.js";
 
+const modalStore = useModalStore();
 const router = useRouter();
 
 function redirect() {
   router.push({ name: "feed" });
+  modalStore.modalType = null;
 }
 </script>

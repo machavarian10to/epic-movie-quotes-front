@@ -3,14 +3,14 @@ import { createPinia } from "pinia";
 import { MotionPlugin } from "@vueuse/motion";
 import router from "./router";
 
+import ActivatedMessage from "@/components/modals/ActivatedMessage.vue";
+import ForgotPassword from "@/components/modals/ForgotPassword.vue";
+import NewPassword from "@/components/modals/NewPassword.vue";
+import RecoveryMessage from "@/components/modals/RecoveryMessage.vue";
+import ResetMessage from "@/components/modals/ResetMessage.vue";
+import UserLogin from "@/components/modals/UserLogin.vue";
 import UserRegister from "@/components/modals/UserRegister.vue";
 import VerificationMessage from "@/components/modals/VerificationMessage.vue";
-import ActivatedMessage from "@/components/modals/ActivatedMessage.vue";
-import UserLogin from "@/components/modals/UserLogin.vue";
-import ForgotPassword from "@/components/modals/ForgotPassword.vue";
-import RecoveryMessage from "@/components/modals/RecoveryMessage.vue";
-import NewPassword from "@/components/modals/NewPassword.vue";
-import ResetMessage from "@/components/modals/ResetMessage.vue";
 
 import "@/config/vee-validate/rules";
 import "@/config/vee-validate/messages";

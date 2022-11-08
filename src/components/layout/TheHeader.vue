@@ -11,25 +11,30 @@
         <RedButton
           title="Sign Up"
           class="w-[100px] h-[40px] mx-5"
-          @click="modalType = 'user-register'"
+          @click="modalStore.modalType = 'user-register'"
         />
         <BlackButton
           title="Log in"
           class="w-[100px] h-[40px]"
-          @click="modalType = 'user-login'"
+          @click="modalStore.modalType = 'user-login'"
         />
       </div>
     </div>
 
     <Teleport to="body">
-      <div v-if="modalType" @wheel.prevent @touchmove.prevent @scroll.prevent>
+      <div
+        v-if="modalStore.modalType"
+        @wheel.prevent
+        @touchmove.prevent
+        @scroll.prevent
+      >
         <div
-          @click="modalType = null"
+          @click="modalStore.modalType = null"
           class="fixed inset-0 z-10 h-[100vh] w-full text-black-rgba backdrop-blur-[3px]"
         ></div>
 
         <keep-alive>
-          <component @changeModal="changeModal" :is="modalType"></component>
+          <component :is="modalStore.modalType"></component>
         </keep-alive>
       </div>
     </Teleport>
@@ -41,11 +46,7 @@ import TheArrow from "@/components/icons/TheArrow.vue";
 import RedButton from "@/components/ui/RedButton.vue";
 import BlackButton from "@/components/ui/BlackButton.vue";
 
-import { ref } from "vue";
+import { useModalStore } from "@/stores/modal.js";
 
-let modalType = ref(null);
-
-function changeModal(modal) {
-  modalType.value = modal;
-}
+const modalStore = useModalStore();
 </script>

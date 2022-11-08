@@ -8,7 +8,11 @@
       <h3 class="text-golden text-6xl font-montserrat font-bold my-8">
         millions of movie lines
       </h3>
-      <RedButton title="Get Started" class="w-[100px] h-[40px] mx-5" />
+      <RedButton
+        title="Get Started"
+        @click="modalStore.modalType = 'user-login'"
+        class="w-[100px] h-[40px] mx-5"
+      />
     </div>
   </section>
 
@@ -41,6 +45,8 @@
 import TheHeader from "@/components/layout/TheHeader.vue";
 import TheLine from "@/components/icons/TheLine.vue";
 import RedButton from "@/components/ui/RedButton.vue";
+import { useModalStore } from "@/stores/modal.js";
+const modalStore = useModalStore();
 </script>
 
 <style scope>
