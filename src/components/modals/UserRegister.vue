@@ -1,44 +1,51 @@
 <template>
-  <TheModal title="Create an account" subtitle="Start your journey!">
-    <FormField @submit="registerUser" class="mt-3" v-slot="{ meta, errors }">
-      <InputWrapper title="Name">
+  <TheModal
+    :title="$t('home.modals.create_account')"
+    :subtitle="$t('home.modals.start_journey')"
+  >
+    <FormField
+      @submit="registerUser"
+      class="mt-3 px-2 flex flex-col items-center"
+      v-slot="{ meta, errors }"
+    >
+      <InputWrapper :title="$t('inputs.name')">
         <BaseInput
           name="name"
           type="text"
-          placeholder="At least 3 & max.15 lower case characters"
+          :placeholder="$t('inputs.name_placeholder')"
           rules="required|min:3|max:15|lowercase"
           :invalid="errors.name"
           v-model="user.name"
         />
       </InputWrapper>
 
-      <InputWrapper title="Email">
+      <InputWrapper :title="$t('inputs.email')">
         <BaseInput
           name="email"
           type="email"
-          placeholder="Enter your email"
+          :placeholder="$t('inputs.email_placeholder')"
           rules="required|email"
           :invalid="errors.email"
           v-model="user.email"
         />
       </InputWrapper>
 
-      <InputWrapper title="Password">
+      <InputWrapper :title="$t('inputs.password')">
         <BaseInput
           name="password"
           type="password"
-          placeholder="At least 8 & max.15 lower case characters"
+          :placeholder="$t('inputs.password_placeholder')"
           rules="required|min:8|max:15|lowercase"
           :invalid="errors.password"
           v-model="user.password"
         />
       </InputWrapper>
 
-      <InputWrapper title="Confirm password">
+      <InputWrapper :title="$t('inputs.confirm_password')">
         <BaseInput
           name="password_confirmation"
           type="password"
-          placeholder="Confirm password"
+          :placeholder="$t('inputs.confirm_password')"
           rules="required|match:@password"
           :invalid="errors.confirmation"
           v-model="user.password_confirmation"
@@ -51,14 +58,14 @@
         "
       >
         <RedButton
-          title="Get started"
+          :title="$t('buttons.start')"
           class="w-[360px] h-[40px] my-5"
           @click="registerUser(meta)"
         />
       </div>
 
       <BlackButton
-        title="Sign up with Google"
+        :title="$t('buttons.google_sign_up')"
         class="w-[360px] h-[40px]"
         type="button"
         @click="googleAuth()"
@@ -67,11 +74,11 @@
       </BlackButton>
 
       <p class="text-modal-text text-center mt-10">
-        Already have an account?
+        {{ $t("home.modals.already_member") }}
         <span
           @click="modalStore.modalType = 'user-login'"
           class="text-modal-link underline cursor-pointer"
-          >Log in</span
+          >{{ $t("buttons.login") }}</span
         >
       </p>
     </FormField>

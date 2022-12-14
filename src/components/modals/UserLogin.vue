@@ -1,25 +1,29 @@
 <template>
   <TheModal
-    title="Log in to your account"
-    subtitle="Welcome back! Please enter your details."
+    :title="$t('home.modals.login_account')"
+    :subtitle="$t('home.modals.welcome')"
   >
-    <FormField @submit="loginUser" class="mt-3" v-slot="{ meta, errors }">
-      <InputWrapper title="Email">
+    <FormField
+      @submit="loginUser"
+      class="mt-3 px-2 flex flex-col items-center"
+      v-slot="{ meta, errors }"
+    >
+      <InputWrapper :title="$t('inputs.email')">
         <BaseInput
           name="loginEmail"
-          type="email"
-          placeholder="Enter your email"
-          rules="required|email"
+          type="text"
+          :placeholder="$t('inputs.email_placeholder')"
+          rules="required"
           :invalid="errors.loginEmail"
           v-model="user.email"
         />
       </InputWrapper>
 
-      <InputWrapper title="Password">
+      <InputWrapper :title="$t('inputs.password')">
         <BaseInput
           name="loginPassword"
           type="password"
-          placeholder="Password"
+          :placeholder="$t('inputs.password_placeholder')"
           rules="required|min:8|max:15|lowercase"
           :invalid="errors.loginPassword"
           v-model="user.password"
@@ -28,24 +32,27 @@
 
       <div class="flex justify-between mt-5">
         <div class="flex items-center">
-          <input type="checkbox" id="remember" v-model="user.remember" />
-          <label for="remember" class="text-white ml-2">Remember me</label>
+          <input type="checkbox" id="remember" />
+          <label for="remember" class="text-white ml-2">{{
+            $t("home.modals.remember")
+          }}</label>
         </div>
+
         <span
           @click="modalStore.modalType = 'forgot-password'"
-          class="text-modal-link underline cursor-pointer"
-          >Forgot password</span
+          class="text-modal-link ml-24 underline cursor-pointer"
+          >{{ $t("home.modals.forgot") }}</span
         >
       </div>
 
       <RedButton
-        title="Sign in"
+        :title="$t('buttons.sign_in')"
         class="w-[360px] h-[40px] my-5"
         @click="loginUser(meta)"
       />
 
       <BlackButton
-        title="Sign in with Google"
+        :title="$t('buttons.google_sign_in')"
         class="w-[360px] h-[40px]"
         type="button"
         @click="googleAuth()"
@@ -54,11 +61,11 @@
       </BlackButton>
 
       <p class="text-modal-text text-center mt-10">
-        Don't have an account?
+        {{ $t("home.modals.not_member") }}
         <span
           @click="modalStore.modalType = 'user-register'"
           class="text-modal-link underline cursor-pointer"
-          >Sign up</span
+          >{{ $t("buttons.sign_up") }}</span
         >
       </p>
     </FormField>
@@ -84,7 +91,6 @@ const userStore = useUserStore();
 const user = reactive({
   email: "",
   password: "",
-  remember: false,
 });
 
 function loginUser(meta) {

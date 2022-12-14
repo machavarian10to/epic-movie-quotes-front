@@ -1,19 +1,21 @@
 <template>
-  <TheModal title="Thank you!">
+  <TheModal :title="$t('home.modals.thanks')">
     <template #header>
       <div class="flex justify-center my-3">
         <SuccessIcon />
       </div>
     </template>
 
-    <h4 class="text-center text-white py-5">
-      Your account has been activated.
-    </h4>
-    <RedButton
-      title="Go to my news feed"
-      class="w-[360px] h-[40px] my-5"
-      @click="redirect"
-    ></RedButton>
+    <div class="flex flex-col items-center">
+      <h4 class="text-center text-white py-5">
+        {{ $t("home.modals.activated") }}
+      </h4>
+      <RedButton
+        :title="$t('buttons.goto_feed')"
+        class="w-[360px] h-[40px] my-5"
+        @click="modalStore.modalType = 'user-login'"
+      ></RedButton>
+    </div>
   </TheModal>
 </template>
 
@@ -21,14 +23,7 @@
 import TheModal from "@/components/TheModal.vue";
 import SuccessIcon from "@/components/icons/SuccessIcon.vue";
 import RedButton from "@/components/ui/RedButton.vue";
-import { useRouter } from "vue-router";
 import { useModalStore } from "@/stores/modal.js";
 
 const modalStore = useModalStore();
-const router = useRouter();
-
-function redirect() {
-  router.push({ name: "feed" });
-  modalStore.modalType = null;
-}
 </script>

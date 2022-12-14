@@ -23,7 +23,6 @@ onMounted(async () => {
     modalStore.modalType = "activated-message";
   } catch (err) {
     console.log(err);
-    router.push({ name: "home" });
   }
 });
 </script>

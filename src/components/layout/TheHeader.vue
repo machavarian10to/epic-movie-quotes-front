@@ -1,20 +1,17 @@
 <template>
   <header>
     <div class="flex justify-between items-center p-7">
-      <h3 class="uppercase font-bold text-golden">movie quotes</h3>
+      <h3 class="uppercase font-bold text-center text-golden">movie quotes</h3>
       <div class="flex items-center">
-        <div class="flex items-center mr-5 cursor-pointer">
-          <div class="text-white mr-3">Eng</div>
-          <TheArrow />
-        </div>
+        <LocaleChanger class="hidden md:block" />
 
         <RedButton
-          title="Sign Up"
-          class="w-[100px] h-[40px] mx-5"
+          :title="$t('buttons.sign_up')"
+          class="h-[40px] hidden md:block px-5 mx-5"
           @click="modalStore.modalType = 'user-register'"
         />
         <BlackButton
-          title="Log in"
+          :title="$t('buttons.login')"
           class="w-[100px] h-[40px]"
           @click="modalStore.modalType = 'user-login'"
         />
@@ -42,7 +39,7 @@
 </template>
 
 <script setup>
-import TheArrow from "@/components/icons/TheArrow.vue";
+import LocaleChanger from "@/components/simplify/LocaleChanger.vue";
 import RedButton from "@/components/ui/RedButton.vue";
 import BlackButton from "@/components/ui/BlackButton.vue";
 

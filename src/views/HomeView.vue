@@ -2,38 +2,42 @@
   <TheHeader />
   <section>
     <div class="mx-auto my-[30vh] text-center">
-      <h3 class="text-golden text-6xl font-montserrat font-bold">
-        Find any quote in
+      <h3 class="text-golden text-[24px] md:text-6xl font-montserrat font-bold">
+        {{ $t("home.quote") }}
       </h3>
-      <h3 class="text-golden text-6xl font-montserrat font-bold my-8">
-        millions of movie lines
+      <h3
+        class="text-golden text-[24px] md:text-6xl font-montserrat font-bold my-8"
+      >
+        {{ $t("home.movie") }}
       </h3>
       <RedButton
-        title="Get Started"
+        :title="$t('buttons.start')"
         @click="modalStore.modalType = 'user-login'"
-        class="w-[100px] h-[40px] mx-5"
+        class="w-[105px] md:w-[135px] text-[16px] md:text-[20px] h-[50px] mx-5"
       />
     </div>
   </section>
 
   <section>
     <div
-      class="h-[100vh] bg-test-image bg-center bg-no-repeat bg-cover relative"
-      v-motion
-      :initial="{ opacity: 0, y: 100 }"
-      :visible="{ opacity: 1, y: 0 }"
+      v-for="quote in quotes"
+      :key="quote.id"
+      :class="quote.image"
+      class="h-[100vh] w-[100%] bg-center bg-no-repeat bg-cover relative bg-fixed"
     >
       <div class="gradient w-full h-full"></div>
+
       <div class="absolute top-[30%] left-10 flex">
         <TheLine class="mt-8 mr-5" />
+
         <div>
           <h3
-            class="text-white font-montserrat font-bold text-[50px] w-[800px]"
+            class="text-white font-montserrat font-bold text-[20px] md:text-[40px]"
           >
-            “You have to leave something behind to go forward”
+            {{ quote.quote }}
           </h3>
-          <p class="text-light-gray text-[30px] font-bold mt-5">
-            Interstellar, 2014
+          <p class="text-light-gray text-[16px] md:text-[30px] font-bold mt-5">
+            {{ quote.movie }}
           </p>
         </div>
       </div>
@@ -46,13 +50,34 @@ import TheHeader from "@/components/layout/TheHeader.vue";
 import TheLine from "@/components/icons/TheLine.vue";
 import RedButton from "@/components/ui/RedButton.vue";
 import { useModalStore } from "@/stores/modal.js";
+import { reactive } from "vue";
 const modalStore = useModalStore();
+
+const quotes = reactive([
+  {
+    id: 1,
+    image: "bg-first-image",
+    quote: "“You have to leave something behind to go forward”",
+    movie: "Interstellar, 2014",
+  },
+  {
+    id: 2,
+    image: "bg-second-image",
+    quote:
+      "“I think we're just gonna have to be secretly in love with each other and leave it that”",
+    movie: "The Royal Tenenbaums,2001 ",
+  },
+  {
+    id: 3,
+    image: "bg-third-image",
+    quote:
+      "“I think we're just gonna have to be secretly in love with each other and leave it that”",
+    movie: "The Royal Tenenbaums,2001 ",
+  },
+]);
 </script>
 
 <style scope>
-body {
-  background: black;
-}
 .gradient {
   background: linear-gradient(
     180deg,

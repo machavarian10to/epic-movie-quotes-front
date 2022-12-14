@@ -1,20 +1,17 @@
 import { defineStore } from "pinia";
 import axios from "@/axios";
-import { setToken } from "@/components/helpers/index";
-import { deleteToken } from "@/components/helpers";
 
 export const useUserStore = defineStore({
   id: "user",
   state: () => ({
     userData: null,
+    authenticated: null,
   }),
   actions: {
     register(user) {
       return axios
         .post("/register", user)
-        .then((res) => {
-          setToken(res.data.access_token, res.data.expires_in);
-        })
+        .then((res) => console.log(res))
         .catch((err) => console.log(err));
     },
     googleAuth() {
@@ -32,7 +29,8 @@ export const useUserStore = defineStore({
       axios
         .post("/login", user)
         .then((res) => {
-          setToken(res.data.access_token, res.data.expires_in);
+          this.userData = res.data.user;
+          this.authenticated = true;
           this.router.push({ name: "feed" });
         })
         .catch((err) => console.log(err));
@@ -49,12 +47,18 @@ export const useUserStore = defineStore({
         .then(() => console.log("Password updated successfully!"))
         .catch((err) => console.log(err));
     },
+    addEmail(email) {
+      axios
+        .post("/add-email", email)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    },
     logout() {
-      return axios
+      axios
         .post("/logout")
         .then(() => {
-          deleteToken();
           this.userData = null;
+          this.authenticated = false;
         })
         .catch((err) => console.log(err));
     },

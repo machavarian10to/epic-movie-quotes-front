@@ -1,7 +1,11 @@
-import { getToken } from "@/components/helpers/index";
+import router from "@/router/index";
+import { useUserStore } from "@/stores/user";
 
-export function isAuthenticated() {
-  if (!getToken()) {
-    return { name: "home" };
+const isAuthenticated = () => {
+  const userStore = useUserStore();
+  if (!userStore.authenticated) {
+    return router.push({ name: "forbidden" });
   }
-}
+};
+
+export default isAuthenticated;

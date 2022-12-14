@@ -1,19 +1,24 @@
 <template>
-  <TheModal title="Check your email">
+  <TheModal :title="$t('home.modals.check_email')">
     <template #header>
       <div class="flex justify-center my-3">
         <FeedbackIcon />
       </div>
     </template>
 
-    <h4 class="text-center text-white py-5">
-      We have sent a password recover instructions to your email
-    </h4>
-    <RedButton class="w-[360px] h-[40px] my-5">
-      <a href="https://gmail.com" class="inline-block w-full" target="_blank"
-        >Go to my email</a
-      >
-    </RedButton>
+    <div class="flex flex-col items-center">
+      <h4 class="text-center text-white py-5">
+        {{ $t("home.modals.sent_recovery") }}
+      </h4>
+      <RedButton class="w-[360px] h-[40px] my-5">
+        <a
+          href="https://gmail.com"
+          class="inline-block w-full"
+          target="_blank"
+          >{{ $t("buttons.goto_email") }}</a
+        >
+      </RedButton>
+    </div>
   </TheModal>
 </template>
 
