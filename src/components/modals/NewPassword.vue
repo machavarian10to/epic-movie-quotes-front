@@ -1,36 +1,40 @@
 <template>
   <TheModal
-    title="Create new password"
-    subtitle="Your new password must be different from previous used passwords"
+    :title="$t('home.modals.create_password')"
+    :subtitle="$t('home.modals.different_password')"
   >
-    <FormField @submit="updatePassword" class="mt-3" v-slot="{ meta, errors }">
-      <InputWrapper title="Email">
+    <FormField
+      @submit="updatePassword"
+      class="mt-3 px-2 flex flex-col items-center"
+      v-slot="{ meta, errors }"
+    >
+      <InputWrapper :title="$t('inputs.email')">
         <BaseInput
           name="emailPassword"
           type="email"
-          placeholder="Enter your email"
+          :placeholder="$t('inputs.email_placeholder')"
           rules="required|email"
           :invalid="errors.emailPassword"
           v-model="user.email"
         />
       </InputWrapper>
 
-      <InputWrapper title="Password">
+      <InputWrapper :title="$t('inputs.password')">
         <BaseInput
           name="newPassword"
           type="password"
-          placeholder="At least 8 & max.15 lower case characters"
+          :placeholder="$t('inputs.password_placeholder')"
           rules="required|min:8|max:15|lowercase"
           :invalid="errors.newPassword"
           v-model="user.password"
         />
       </InputWrapper>
 
-      <InputWrapper title="Confirm password">
+      <InputWrapper :title="$t('inputs.confirm_password')">
         <BaseInput
           name="password_confirm"
           type="password"
-          placeholder="Confirm password"
+          :placeholder="$t('inputs.confirm_password')"
           rules="required|match:@newPassword"
           :invalid="errors.password_confirm"
           v-model="user.password_confirmation"
@@ -39,7 +43,7 @@
 
       <div @click="meta.valid ? (modalStore.modalType = 'reset-message') : ''">
         <RedButton
-          title="Reset password"
+          :title="$t('home.modals.reset_password')"
           class="w-[360px] h-[40px] my-5"
           @click="updatePassword(meta)"
         />
@@ -50,7 +54,9 @@
           class="cursor-pointer"
           @click="modalStore.modalType = 'user-login'"
         />
-        <p class="text-modal-text text-center">Back to log in</p>
+        <p class="text-modal-text text-center">
+          {{ $t("home.modals.back_login") }}
+        </p>
       </div>
     </FormField>
   </TheModal>

@@ -1,6 +1,6 @@
 <template>
   <button
-    class="bg-button-basic hover:bg-button-hover active:bg-button-active rounded text-white"
+    class="bg-button-basic hover:bg-button-hover active:bg-button-active text-[18px] rounded text-white"
   >
     {{ title }}
     <slot />

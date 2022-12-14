@@ -1,14 +1,18 @@
 <template>
   <TheModal
-    title="Forgot password?"
-    subtitle="Enter the email and we'll send an email with instructions to reset your password"
+    :title="$t('home.modals.forgot')"
+    :subtitle="$t('home.modals.enter_email')"
   >
-    <FormField @submit="sendReset" class="mt-3" v-slot="{ meta, errors }">
-      <InputWrapper title="Email">
+    <FormField
+      @submit="sendReset"
+      class="mt-3 px-2 flex flex-col items-center"
+      v-slot="{ meta, errors }"
+    >
+      <InputWrapper :title="$t('inputs.email')">
         <BaseInput
           name="resetEmail"
           type="email"
-          placeholder="Enter your email"
+          :placeholder="$t('inputs.email_placeholder')"
           rules="required|email"
           :invalid="errors.resetEmail"
           v-model="user.email"
@@ -19,7 +23,7 @@
         @click="meta.valid ? (modalStore.modalType = 'recovery-message') : ''"
       >
         <RedButton
-          title="Send instructions"
+          :title="$t('buttons.send_instructions')"
           class="w-[360px] h-[40px] my-5"
           @click="sendReset(meta)"
         />
@@ -30,7 +34,9 @@
           class="cursor-pointer"
           @click="modalStore.modalType = 'user-login'"
         />
-        <p class="text-modal-text text-center">Back to log in</p>
+        <p class="text-modal-text text-center">
+          {{ $t("home.modals.back_login") }}
+        </p>
       </div>
     </FormField>
   </TheModal>

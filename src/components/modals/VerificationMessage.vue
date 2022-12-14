@@ -1,5 +1,5 @@
 <template>
-  <TheModal title="Thank you!">
+  <TheModal :title="$t('home.modals.thanks')">
     <template #header>
       <div class="flex justify-center my-3">
         <FeedbackIcon />
@@ -7,13 +7,12 @@
     </template>
 
     <h4 class="text-center text-white py-5">
-      Please check your email and follow the instructions to activate your
-      account.
+      {{ $t("home.modals.check_email") }}
     </h4>
     <RedButton class="w-[360px] h-[40px] my-5">
-      <a href="https://gmail.com" class="inline-block w-full" target="_blank"
-        >Go to my email</a
-      >
+      <a href="https://gmail.com" class="inline-block w-full" target="_blank">{{
+        $t("buttons.goto_email")
+      }}</a>
     </RedButton>
   </TheModal>
 </template>
