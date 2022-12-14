@@ -20,23 +20,28 @@
         <h3 class="text-[24px] mb-1 ml-4">{{ username }}</h3>
       </div>
 
-      <FormField @submit="editMovie" v-slot="{ meta, errors }">
+      <FormField
+        id="form"
+        name="form"
+        @submit="editMovie"
+        v-slot="{ meta, errors }"
+      >
         <ProfileInput
-          name="movie_name_en"
+          name="name_en"
           type="text"
           placeholder="Movie name"
           rules="required"
-          :invalid="errors.movie_name_en"
+          :invalid="errors.name_en"
           v-model="editedMovie.name_en"
           :value="editedMovie.name_en"
         />
 
         <ProfileInput
-          name="movie_name_ka"
+          name="name_ka"
           type="text"
           placeholder="ფილმის სახელი"
           rules="required"
-          :invalid="errors.movie_name_ka"
+          :invalid="errors.name_ka"
           v-model="editedMovie.name_ka"
           :value="editedMovie.name_ka"
         />
@@ -44,10 +49,10 @@
         <div class="flex items-center justify-between">
           <div class="w-[45%]">
             <ProfileInput
-              name="movie_year"
+              name="year"
               type="number"
               placeholder="Year"
-              :invalid="errors.movie_year"
+              :invalid="errors.year"
               class="mr-[10px]"
               v-model="editedMovie.year"
               :value="editedMovie.year"
@@ -56,10 +61,10 @@
 
           <div class="w-[45%]">
             <ProfileInput
-              name="movie_budget"
+              name="budget"
               type="number"
               placeholder="Budget"
-              :invalid="errors.movie_budget"
+              :invalid="errors.budget"
               v-model="editedMovie.budget"
               :value="editedMovie.budget"
             />
@@ -67,21 +72,21 @@
         </div>
 
         <ProfileInput
-          name="movie_director_en"
+          name="director_en"
           type="text"
           placeholder="Director"
           rules="required"
-          :invalid="errors.movie_director_en"
+          :invalid="errors.director_en"
           v-model="editedMovie.director_en"
           :value="editedMovie.director_en"
         />
 
         <ProfileInput
-          name="movie_director_ka"
+          name="director_ka"
           type="text"
           placeholder="რეჟისორი"
           rules="required"
-          :invalid="errors.movie_director_ka"
+          :invalid="errors.director_ka"
           v-model="editedMovie.director_ka"
           :value="editedMovie.director_ka"
         />
@@ -100,21 +105,21 @@
         </VueMultiselect>
 
         <BaseTextarea
-          name="movie_desc_en"
+          name="description_en"
           rules="required"
           placeholder="Movie description"
           v-model="editedMovie.description_en"
           :value="editedMovie.description_en"
-          :invalid="errors.movie_desc_en"
+          :invalid="errors.description_en"
         />
 
         <BaseTextarea
-          name="movie_desc_ka"
+          name="description_ka"
           rules="required"
           placeholder="ფილმის აღწერა"
           v-model="editedMovie.description_ka"
           :value="editedMovie.description_ka"
-          :invalid="errors.movie_desc_ka"
+          :invalid="errors.description_ka"
         />
 
         <div
@@ -203,16 +208,8 @@ async function editMovie(meta) {
     editedMovie.genres.forEach((genre) => {
       genreList.push(genre.id);
     });
-    let data = new FormData();
-    data.append("name_en", editedMovie.name_en);
-    data.append("name_ka", editedMovie.name_ka);
-    data.append("director_en", editedMovie.director_en);
-    data.append("director_ka", editedMovie.director_ka);
-    data.append("description_en", editedMovie.description_en);
-    data.append("description_ka", editedMovie.description_ka);
-    data.append("year", editedMovie.year);
-    data.append("budget", editedMovie.budget);
-    data.append("image", editedMovie.image);
+
+    let data = new FormData(form);
     data.append("genre", genreList);
     await axios
       .post(`/movies/${route.params.movie}`, data, config)
