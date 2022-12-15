@@ -8,12 +8,18 @@ const userStore = useUserStore();
 const router = useRouter();
 const route = useRoute();
 
+const config = {
+  headers: {
+    Authorization: "Bearer abcdefghjkl",
+  },
+};
+
 onMounted(() => {
   return axios
-    .get(`/google/callback?code=${route.query.code}`)
+    .get(`/google/callback?code=${route.query.code}`, config)
     .then((res) => {
-      userStore.userData = res.data.user;
       userStore.authenticated = true;
+      userStore.userData = res.data.user;
       router.push({ name: "feed" });
     })
     .catch((err) => console.log(err));

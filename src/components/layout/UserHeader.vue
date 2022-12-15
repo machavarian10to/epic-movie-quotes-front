@@ -20,7 +20,7 @@
           <div
             class="bg-red-500 w-[25px] h-[25px] rounded-[50%] text-center absolute top-[-10px] right-[-10px]"
           >
-            <span class="">{{ notifications.length }}</span>
+            <span class="">{{ notifications?.length }}</span>
           </div>
         </div>
 
